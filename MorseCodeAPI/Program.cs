@@ -2,6 +2,42 @@
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+
+Dictionary<char, string> morsecodeDictionary = new Dictionary<char, string>()
+{
+    { 'A', ".-" },
+    { 'B', "-..." },
+    { 'C', "-.-." },
+    { 'D', "-.." },
+    { 'E', "." },
+    { 'F', "..-." },
+    { 'G', "--." },
+    { 'H', "...." },
+    { 'I', ".." },
+    { 'J', ".---" },
+    { 'K', "-.-" },
+    { 'L', ".-.." },
+    { 'M', "--" },
+    { 'N', "-." },
+    { 'O', "---" },
+    { 'P', ".--." },
+    { 'Q', "--.-" },
+    { 'R', ".-." },
+    { 'S', "..." },
+    { 'T', "-" },
+    { 'U', "..-" },
+    { 'V', "...-" },
+    { 'W', ".--" },
+    { 'X', "-..-" },
+    { 'Y', "-.--" },
+    { 'Z', "--.." },
+    { ' ', "/" },
+    { '.', ".-.-.-" },
+    { '?', "..--.." },
+    { '!', "-.-.--" }
+};
+
+
 // The following code creates an HTTP GET endpoint / which returns Hello, World!
 app.MapGet("/", () => "Hello, World!");
 
@@ -17,20 +53,21 @@ app.MapGet("/morsecode/{id}", (int id) =>
 
 app.MapPost("/morsecode", (Data data) =>
 {
-    return Morsecode.morsecode.Append(data.Name);
-
+    char[] letters = data.Name.ToCharArray();
+    List<string> convertedLetters = new List<string>();
+    
+    foreach (char letter in letters)
+    {
+        char c = char.ToUpper(letter);
+        string convertedLetter = morsecodeDictionary[c];
+        convertedLetters.Add(convertedLetter);
+    }
+    string convertedString = String.Join("", convertedLetters);
+    return convertedString;
 });
 
 // The following code runs the app.
 app.Run();
-
-
-Dictionary<string, string> morsecodeDictionary = new Dictionary<string, string>()
-{
-    { "A", "1" },
-    { "B", "2" },
-    { "C", "3" },
-};
 
 
 public class Morsecode
