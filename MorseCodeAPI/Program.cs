@@ -2,42 +2,6 @@
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-
-Dictionary<char, string> morsecodeDictionary = new Dictionary<char, string>()
-{
-    { 'A', ".-" },
-    { 'B', "-..." },
-    { 'C', "-.-." },
-    { 'D', "-.." },
-    { 'E', "." },
-    { 'F', "..-." },
-    { 'G', "--." },
-    { 'H', "...." },
-    { 'I', ".." },
-    { 'J', ".---" },
-    { 'K', "-.-" },
-    { 'L', ".-.." },
-    { 'M', "--" },
-    { 'N', "-." },
-    { 'O', "---" },
-    { 'P', ".--." },
-    { 'Q', "--.-" },
-    { 'R', ".-." },
-    { 'S', "..." },
-    { 'T', "-" },
-    { 'U', "..-" },
-    { 'V', "...-" },
-    { 'W', ".--" },
-    { 'X', "-..-" },
-    { 'Y', "-.--" },
-    { 'Z', "--.." },
-    { ' ', "/" },
-    { '.', ".-.-.-" },
-    { '?', "..--.." },
-    { '!', "-.-.--" }
-};
-
-
 // The following code creates an HTTP GET endpoint / which returns Hello, World!
 app.MapGet("/", () => "Hello, World!");
 
@@ -59,7 +23,7 @@ app.MapPost("/morsecode", (Data data) =>
     foreach (char letter in letters)
     {
         char c = char.ToUpper(letter);
-        string convertedLetter = morsecodeDictionary[c];
+        string convertedLetter = Morsecode.morsecodeDictionary[c];
         convertedLetters.Add(convertedLetter);
     }
     string convertedString = String.Join("", convertedLetters);
@@ -84,6 +48,40 @@ public class Morsecode
             return "Array must be null || id is oustide array.Length.";
         }
     }
+
+    public static Dictionary<char, string> morsecodeDictionary = new Dictionary<char, string>()
+    {
+        { 'A', ".-" },
+        { 'B', "-..." },
+        { 'C', "-.-." },
+        { 'D', "-.." },
+        { 'E', "." },
+        { 'F', "..-." },
+        { 'G', "--." },
+        { 'H', "...." },
+        { 'I', ".." },
+        { 'J', ".---" },
+        { 'K', "-.-" },
+        { 'L', ".-.." },
+        { 'M', "--" },
+        { 'N', "-." },
+        { 'O', "---" },
+        { 'P', ".--." },
+        { 'Q', "--.-" },
+        { 'R', ".-." },
+        { 'S', "..." },
+        { 'T', "-" },
+        { 'U', "..-" },
+        { 'V', "...-" },
+        { 'W', ".--" },
+        { 'X', "-..-" },
+        { 'Y', "-.--" },
+        { 'Z', "--.." },
+        { ' ', "/" },
+        { '.', ".-.-.-" },
+        { '?', "..--.." },
+        { '!', "-.-.--" }
+    };
 }
 
 class Data
